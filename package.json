@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,9 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
-    "morgan": "^1.10.0"
+    "libxmljs": "^1.0.11",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4"
   },
   "type": "module"
 }

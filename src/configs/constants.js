@@ -1,5 +1,6 @@
 export const initialConfigTemplate = (treeroot, url) => {
-  return `<Sinequa>
+  return `<?xml version="1.0" encoding="utf-8"?>
+  <Sinequa>
 	<connector>crawler2</connector>
 	<description></description>
 	<identity></identity>
