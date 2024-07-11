@@ -34,10 +34,13 @@ export async function createConfig(body) {
 // Validate xml
 function validateXML(xmlString) {
   try {
-    XMLValidator.validate(xmlString, { allowBooleanAttributes: true });
-    return true;
+    const validate = XMLValidator.validate(xmlString, {
+      allowBooleanAttributes: true,
+    });
+    if (validate === true) return true;
+    throw Error(validate.err);
   } catch (error) {
-    console.error("Invalid XML");
+    console.error(error);
     return false;
   }
 }
