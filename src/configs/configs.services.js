@@ -1,9 +1,9 @@
 import fs from "fs/promises";
 import { exec } from "child_process";
-import libxmljs from "libxmljs";
 import { initialConfigTemplate } from "./constants.js";
 import { promisify } from "util";
 import path from "path";
+import { XMLValidator } from "fast-xml-parser";
 
 // Promsifying exec
 const asyncExec = promisify(exec);
@@ -34,7 +34,7 @@ export async function createConfig(body) {
 // Validate xml
 function validateXML(xmlString) {
   try {
-    libxmljs.parseXml(xmlString);
+    XMLValidator.validate(xmlString, { allowBooleanAttributes: true });
     return true;
   } catch (error) {
     console.error("Invalid XML");
