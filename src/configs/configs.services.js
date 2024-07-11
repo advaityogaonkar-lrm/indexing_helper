@@ -24,7 +24,7 @@ export async function createConfig(body) {
   try {
     await fs.mkdir(dirPath, { recursive: true });
     await fs.writeFile(filePath, initialConfig);
-    await copyConfig(dirPath, process.env.SDE_MAIN);
+    await copyConfig(dirPath, process.env.SDE_MAIN, configName);
     console.log("config file created and moved successfully");
   } catch (error) {
     console.error("Error storing file : ", error);
@@ -43,12 +43,12 @@ function validateXML(xmlString) {
 }
 
 // Copy config
-async function copyConfig(source, destination) {
+async function copyConfig(source, destination, configName) {
   const commandType = process.env.COMMAND_TYPE;
   let command = "";
   switch (commandType) {
     case "win": {
-      command = `xcopy ${source} ${destination} /E /I /Y`;
+      command = `xcopy ${source} ${destination}${configName} /E /I /Y`;
       break;
     }
     case "linux": {
