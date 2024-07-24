@@ -22,12 +22,8 @@ app.use(morgan("combined"));
 app.use(e.json());
 
 const httpsOptions = {
-  key: fs.readFileSync(
-    "/home/advaityogaonkar/Documents/NASA/indexing-helper/ssl_keys/key.pem"
-  ),
-  cert: fs.readFileSync(
-    "/home/advaityogaonkar/Documents/NASA/indexing-helper/ssl_keys/cert.pem"
-  ),
+  key: fs.readFileSync(process.env.SSL_KEY),
+  cert: fs.readFileSync(process.env.SSL_CERT),
 };
 
 const corsOptions = {

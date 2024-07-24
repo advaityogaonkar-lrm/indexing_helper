@@ -8,7 +8,31 @@ import { XMLValidator } from "fast-xml-parser";
 // Promsifying exec
 const asyncExec = promisify(exec);
 
-// TODOS :
+export async function createConfigRemastered(body) {
+  const collections = body;
+
+  try {
+    const results = await Promise.allSettled(
+      collections.map((collection) => createConfig(collection))
+    );
+
+    let fulfilledResults = [];
+    let rejectedResults = [];
+
+    fulfilledResults = results
+      .filter((result) => result.status === "fulfilled")
+      .map((result) => result.value);
+    rejectedResults = results
+      .filter((result) => result.status === "rejected")
+      .map((result) => result.reason);
+
+    return { fulfilledResults, rejectedResults };
+  } catch (error) {
+    console.log();
+    return error;
+  }
+}
+
 // Create config
 export async function createConfig(body) {
   const { treeroot, url, configName } = body;
@@ -25,7 +49,7 @@ export async function createConfig(body) {
     await fs.mkdir(dirPath, { recursive: true });
     await fs.writeFile(filePath, initialConfig);
     await copyConfig(dirPath, process.env.SDE_MAIN, configName);
-    console.log("config file created and moved successfully");
+    return configName;
   } catch (error) {
     console.error("Error storing file : ", error);
     throw new Error("Error storing file");
