@@ -1,5 +1,9 @@
 import e from "express";
-import { createNewConfig } from "./configs.controller.js";
+import {
+  createFinalConfig,
+  createInitialConfig,
+} from "./configs.controller.js";
 
 export const router = e.Router();
-router.route("/").post(createNewConfig);
+router.route("/").post(createInitialConfig);
+router.route("/final").post(createFinalConfig);

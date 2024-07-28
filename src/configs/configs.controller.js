@@ -1,9 +1,9 @@
-import { createConfig, createConfigRemastered } from "./configs.services.js";
+import { createConfig } from "./configs.services.js";
 
-export async function createNewConfig(req, res, next) {
+export async function createInitialConfig(req, res, next) {
   try {
     // await createConfig(req.body);
-    const result = await createConfigRemastered(req.body);
+    const result = await createConfig(req.body, "initial_config");
     res.status(200).json({
       status: "success",
       data: {
@@ -15,6 +15,23 @@ export async function createNewConfig(req, res, next) {
     res.status(400).json({
       status: "failed",
       message: error.message,
+    });
+  }
+}
+
+export async function createFinalConfig(req, res, next) {
+  try {
+    const result = await createConfig(req.body, "final_config");
+    res.status(200).json({
+      status: "success",
+      data: {
+        message: "File created",
+        result,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
     });
   }
 }

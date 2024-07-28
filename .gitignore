@@ -131,4 +131,8 @@ dist
 
 
 # keys
-.ssl_keys/
+ssl_keys/
+
+
+# test folder
+ignore/
