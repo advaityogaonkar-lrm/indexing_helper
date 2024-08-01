@@ -299,3 +299,21 @@ export const initialConfigTemplate = (treeroot, url) => {
 	<Namespace></Namespace>
 </Sinequa>`;
 };
+
+export const finalConfigValues = {
+  Plugin: "SMD_Plugins/Sinequa.Plugin.WebCrawler_Index_URLList",
+  Url: "",
+  IncludedExtensions: "",
+  Mapping: [
+    { Name: "id", Value: "doc.url1" },
+    { Name: "version", Value: "Md5(doc.url1)" },
+  ],
+  UrlRefererStayInside: false,
+  FollowLinks: false,
+  WorkerCount: 8,
+  UseRobotsNoIndex: false,
+  System: { LogLevel: "INFO" },
+  HtmlNavigatorNative: true,
+  DownloadImages: true,
+  DownloadMedia: true,
+};
