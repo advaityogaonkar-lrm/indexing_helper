@@ -1,6 +1,5 @@
 import fs from "fs/promises";
 import { exec } from "child_process";
-import { initialConfigTemplate } from "./constants.js";
 import { promisify } from "util";
 import path from "path";
 import { XMLValidator, XMLParser, XMLBuilder } from "fast-xml-parser";
@@ -129,9 +128,8 @@ export async function createFinalConfig(collection) {
     finalConfig = `${XML_DECLARATION}${finalConfig}`;
 
     // SAVE FILE
-    const filename = "default.xml";
     const dirPath = `${process.env.SDE_MAIN}${configName}`;
-    const filePath = path.join(dirPath, filename);
+    const filePath = path.join(dirPath, "default.xml");
     await copyConfig(dirPath, process.env.FINAL_CONFIG_BACKUP, configName);
     await fs.writeFile(filePath, finalConfig, "utf-8");
     return configName;
@@ -161,6 +159,8 @@ export async function createFinalConfig(collection) {
       let finalConfig = builder.build(parsedConfig);
       finalConfig = `${XML_DECLARATION}${finalConfig}`;
 
+      await copyConfig(dirPath, process.env.FINAL_CONFIG_BACKUP, configName);
+
       // SAVE FILE
       await fs.writeFile(filePath, finalConfig, "utf-8");
       return configName;
@@ -186,17 +186,11 @@ export async function createInitialConfig(body) {
       Url: url,
     };
 
-    // let modifiedConfig = builder.build(initialConfigTemplate);
-
-    // modifiedConfig = `<?xml version="1.0" encoding="utf-8"?>${modifiedConfig}`;
-    // validateXML(modifiedConfig);
-
     const dirPath = `${process.env.TEMP_INITIAL_CONFIG_FOLDER}${configName}`;
     const filePath = path.join(dirPath, "default.xml");
 
     await createDirectory(dirPath);
     await saveXml(filePath, initialConfigTemplate);
-    // await fs.writeFile(filePath, modifiedConfig);
     await copyConfig(dirPath, process.env.SDE_MAIN, configName);
 
     return configName;
