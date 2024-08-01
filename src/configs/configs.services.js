@@ -3,7 +3,7 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import path from "path";
 import { XMLValidator, XMLParser, XMLBuilder } from "fast-xml-parser";
-import { finalConfigValues } from "./constants";
+import { finalConfigValues } from "./constants.js";
 
 // Promsifying exec
 const asyncExec = promisify(exec);
