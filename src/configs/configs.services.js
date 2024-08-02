@@ -159,8 +159,6 @@ export async function createFinalConfig(collection) {
       let finalConfig = builder.build(parsedConfig);
       finalConfig = `${XML_DECLARATION}${finalConfig}`;
 
-      await copyConfig(dirPath, process.env.FINAL_CONFIG_BACKUP, configName);
-
       // SAVE FILE
       await fs.writeFile(filePath, finalConfig, "utf-8");
       return configName;
