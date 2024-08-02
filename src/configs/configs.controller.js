@@ -26,7 +26,7 @@ export async function createFinalConfig(req, res, next) {
       status: "success",
       data: {
         message: "File created",
-        result,
+        ...result,
       },
     });
   } catch (error) {
