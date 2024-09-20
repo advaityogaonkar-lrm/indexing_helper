@@ -316,4 +316,5 @@ export const finalConfigValues = {
   HtmlNavigatorNative: true,
   DownloadImages: true,
   DownloadMedia: true,
+  EnableNeuralIndexing: false,
 };

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <Sinequa>
+<Sinequa>
 	<connector>crawler2</connector>
 	<description></description>
 	<identity></identity>
@@ -22,7 +22,7 @@
 	<ExcludedFilenames></ExcludedFilenames>
 	<IncludedFolders></IncludedFolders>
 	<ExcludedFolders></ExcludedFolders>
-	<EnableNeuralIndexing>true</EnableNeuralIndexing>
+	<EnableNeuralIndexing>false</EnableNeuralIndexing>
 	<NeuralSearchSelectionQuery></NeuralSearchSelectionQuery>
 	<UrlStayInside>true</UrlStayInside>
 	<UrlRefererStayInside>true</UrlRefererStayInside>

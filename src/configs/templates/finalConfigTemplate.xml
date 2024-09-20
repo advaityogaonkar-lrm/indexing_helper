@@ -21,7 +21,7 @@
     <ExcludedFilenames></ExcludedFilenames>
     <IncludedFolders></IncludedFolders>
     <ExcludedFolders></ExcludedFolders>
-    <EnableNeuralIndexing>true</EnableNeuralIndexing>
+    <EnableNeuralIndexing>false</EnableNeuralIndexing>
     <NeuralSearchSelectionQuery></NeuralSearchSelectionQuery>
     <UrlStayInside>true</UrlStayInside>
     <MaxLevel></MaxLevel>

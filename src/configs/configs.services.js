@@ -111,7 +111,7 @@ export async function createFinalConfig(collection) {
 
   try {
     let finalConfigTemplate = await fs.readFile(
-      `${process.env.SDE_MAIN}${configName}/default.xml`,
+      `${process.env.SDE_MAIN_INITIAL_CONFIG}${configName}/default.xml`,
       "utf-8"
     );
 
@@ -127,10 +127,9 @@ export async function createFinalConfig(collection) {
     let finalConfig = builder.build(parsedFinalConfig);
     finalConfig = `${XML_DECLARATION}${finalConfig}`;
 
-    // SAVE FILE
-    const dirPath = `${process.env.SDE_MAIN}${configName}`;
+    const dirPath = `${process.env.SDE_MAIN_FINAL_CONFIG}${configName}`;
     const filePath = path.join(dirPath, "default.xml");
-    await copyConfig(dirPath, process.env.FINAL_CONFIG_BACKUP, configName);
+    await fs.mkdir(dirPath, { recursive: true });
     await fs.writeFile(filePath, finalConfig, "utf-8");
     return configName;
   } catch (error) {
@@ -138,7 +137,7 @@ export async function createFinalConfig(collection) {
       console.log("file not found");
 
       const filename = `default.xml`;
-      const dirPath = `${process.env.SDE_MAIN}${configName}`;
+      const dirPath = `${process.env.SDE_MAIN_FINAL_CONFIG}${configName}`;
       const filePath = path.join(dirPath, filename);
       await fs.mkdir(dirPath, { recursive: true });
 
@@ -189,7 +188,7 @@ export async function createInitialConfig(body) {
 
     await createDirectory(dirPath);
     await saveXml(filePath, initialConfigTemplate);
-    await copyConfig(dirPath, process.env.SDE_MAIN, configName);
+    await copyConfig(dirPath, process.env.SDE_MAIN_INITIAL_CONFIG, configName);
 
     return configName;
   } catch (error) {
