@@ -196,3 +196,62 @@ export async function createInitialConfig(body) {
     throw new Error("Error storing file");
   }
 }
+
+// Create collection jobs
+async function createCollectionJob(jobName) {
+  try {
+    let jobTemplate = await readAndParseXML(process.env.JOB_TEMPLATE);
+    jobTemplate.Sinequa = {
+      ...jobTemplate.Sinequa,
+      Collection: jobName,
+    };
+    const filePath = `${process.env.JOB_FOLDER}${jobName}.xml`;
+    await saveXml(filePath, jobTemplate);
+  } catch (error) {
+    console.error(`Error while creating the collection job `, error);
+  }
+}
+
+// Create joblist from list of collections
+async function createJoblist(batchName, collectionList) {
+  try {
+    let jobTemplate = await readAndParseXML(process.env.JOBLIST_TEMPLATE);
+    let jobListItems = collectionList.map((collection) => {
+      const name = `collection.scraper.${collection}`;
+      return {
+        Name: name,
+        StopOnError: false,
+      };
+    });
+
+    jobTemplate.Sinequa = {
+      ...jobTemplate.Sinequa,
+      JobListItem: jobListItems,
+    };
+
+    const filePath = `${process.env.JOB_FOLDER}${batchName}.xml`;
+    await saveXml(filePath, jobTemplate);
+  } catch (error) {
+    console.error(`Error while creating the joblist : `, error);
+  }
+}
+
+// Create reindex collections joblist
+export async function reindexingJobList(body) {
+  try {
+    const { collectionList, batchName } = body;
+
+    // create individual collection jobs
+    await Promise.allSettled(
+      collectionList.forEach((collection) => {
+        let jobName = `collection.scraper.${collection}`;
+        createCollectionJob(jobName);
+      })
+    );
+
+    // create joblist for the collections
+    await createJoblist(batchName, collectionList);
+  } catch (error) {
+    console.error(error);
+  }
+}
