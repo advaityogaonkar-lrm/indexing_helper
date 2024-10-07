@@ -217,7 +217,7 @@ async function createJoblist(batchName, collectionList) {
   try {
     let jobTemplate = await readAndParseXML(process.env.JOBLIST_TEMPLATE);
     let jobListItems = collectionList.map((collection) => {
-      const name = `collection.scraper.${collection}`;
+      const name = `collection.scrapers.${collection}`;
       return {
         Name: name,
         StopOnError: false,
