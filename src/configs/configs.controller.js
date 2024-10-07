@@ -1,4 +1,4 @@
-import { createConfig } from "./configs.services.js";
+import { createConfig, reindexingJobList } from "./configs.services.js";
 
 export async function createInitialConfig(req, res, next) {
   try {
@@ -27,6 +27,22 @@ export async function createFinalConfig(req, res, next) {
       data: {
         message: "File created",
         ...result,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+    });
+  }
+}
+
+export async function createReindexingJobList(req, res, next) {
+  try {
+    const result = await reindexingJobList(req.body);
+    res.status(200).json({
+      status: "success",
+      data: {
+        message: "Job list created",
       },
     });
   } catch (error) {
