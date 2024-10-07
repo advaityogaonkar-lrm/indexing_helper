@@ -243,9 +243,9 @@ export async function reindexingJobList(body) {
 
     // create individual collection jobs
     await Promise.allSettled(
-      collectionList.forEach((collection) => {
+      collectionList.map((collection) => {
         let jobName = `collection.scraper.${collection}`;
-        createCollectionJob(jobName);
+        return createCollectionJob(jobName);
       })
     );
 
