@@ -42,7 +42,7 @@ export async function createReindexingJobList(req, res, next) {
     res.status(200).json({
       status: "success",
       data: {
-        data: result,
+        result,
         message: "Job list created",
       },
     });
