@@ -251,6 +251,7 @@ export async function reindexingJobList(body) {
 
     // create joblist for the collections
     await createJoblist(batchName, collectionList);
+    return collectionList;
   } catch (error) {
     console.error(error);
   }
