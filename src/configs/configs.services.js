@@ -198,12 +198,12 @@ export async function createInitialConfig(body) {
 }
 
 // Create collection jobs
-async function createCollectionJob(jobName) {
+async function createCollectionJob(jobName, collectionName) {
   try {
     let jobTemplate = await readAndParseXML(process.env.JOB_TEMPLATE);
     jobTemplate.Sinequa = {
       ...jobTemplate.Sinequa,
-      Collection: jobName,
+      Collection: collectionName,
     };
     const filePath = `${process.env.JOB_FOLDER}${jobName}.xml`;
     await saveXml(filePath, jobTemplate);
@@ -245,7 +245,8 @@ export async function reindexingJobList(body) {
     await Promise.allSettled(
       collectionList.map((collection) => {
         let jobName = `collection.scrapers.${collection}`;
-        return createCollectionJob(jobName);
+        let collectionName = `scrapers/${collection}`;
+        return createCollectionJob(jobName, collectionName);
       })
     );
 
