@@ -198,12 +198,12 @@ export async function createInitialConfig(body) {
 }
 
 // Create collection jobs
-async function createCollectionJob(jobName) {
+async function createCollectionJob(jobName, collectionName) {
   try {
     let jobTemplate = await readAndParseXML(process.env.JOB_TEMPLATE);
     jobTemplate.Sinequa = {
       ...jobTemplate.Sinequa,
-      Collection: jobName,
+      Collection: collectionName,
     };
     const filePath = `${process.env.JOB_FOLDER}${jobName}.xml`;
     await saveXml(filePath, jobTemplate);
@@ -217,7 +217,7 @@ async function createJoblist(batchName, collectionList) {
   try {
     let jobTemplate = await readAndParseXML(process.env.JOBLIST_TEMPLATE);
     let jobListItems = collectionList.map((collection) => {
-      const name = `collection.scraper.${collection}`;
+      const name = `collection.scrapers.${collection}`;
       return {
         Name: name,
         StopOnError: false,
@@ -243,14 +243,16 @@ export async function reindexingJobList(body) {
 
     // create individual collection jobs
     await Promise.allSettled(
-      collectionList.forEach((collection) => {
-        let jobName = `collection.scraper.${collection}`;
-        createCollectionJob(jobName);
+      collectionList.map((collection) => {
+        let jobName = `collection.scrapers.${collection}`;
+        let collectionName = `/scrapers/${collection}/`;
+        return createCollectionJob(jobName, collectionName);
       })
     );
 
     // create joblist for the collections
     await createJoblist(batchName, collectionList);
+    return collectionList;
   } catch (error) {
     console.error(error);
   }
