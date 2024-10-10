@@ -16,7 +16,7 @@
 	<Url>url</Url>
 	<UrlList></UrlList>
 	<DynamicUrlList></DynamicUrlList>
-	<IncludedExtensions>html;htm;xlsx;xls;xlsm;doc;docx;doc;ppt;pdf</IncludedExtensions>
+	<IncludedExtensions>html;htm;xlsx;xls;xlsm;doc;docx;ppt;pdf</IncludedExtensions>
 	<ExcludedExtensions></ExcludedExtensions>
 	<IncludedFilenames></IncludedFilenames>
 	<ExcludedFilenames></ExcludedFilenames>
@@ -170,7 +170,7 @@
 		<ProxyDomain></ProxyDomain>
 	</UrlAccess>
 	<System>
-		<LogLevel></LogLevel>
+		<LogLevel>INFO</LogLevel>
 	</System>
 	<DisplayLongProperties>false</DisplayLongProperties>
 	<LongPropertyLimit></LongPropertyLimit>
