@@ -1,8 +1,4 @@
-import {
-  createConfig,
-  reindexingJobList,
-  reindexingJobList,
-} from "./configs.services.js";
+import { createConfig, reindexingJobList } from "./configs.services.js";
 
 export async function createInitialConfig(req, res, next) {
   try {
